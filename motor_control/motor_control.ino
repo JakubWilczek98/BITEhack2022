@@ -8,7 +8,7 @@ int CM;
 long CZAS;
 
 int micPin = 27;
-int soundThresh = 3200;
+int soundThresh = 2100;
 
 int SOSDiode = 13;
 
@@ -83,7 +83,7 @@ void loop() {
     stop();
   }
 
-  if (CM > 40) {
+  if (CM > 35) {
     go_straight();
     delay(200);
     stop_it();
