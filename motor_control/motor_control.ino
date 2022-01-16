@@ -63,20 +63,13 @@ void setup() {
 }
 
 void loop() {
-
   pomiar_odleglosci();
 
-  int count = 0;
-  float sum = 450;
-  while (count < 20){
-    if (analogRead(micPin) > sum){
-      sum=analogRead(micPin);
-    }
-    count++;
-  }
-  Serial.println(sum);
+  Serial.println(CM);
 
-  if (sum > soundThresh) {
+  int micVal = digitalRead(micPin);
+
+  if (micVal == HIGH) {
     Serial.println("Znalazlem!!!!!");
     digitalWrite(SOSDiode, HIGH);
     stop_it();
@@ -95,5 +88,4 @@ void loop() {
     stop_it();
     delay(delay_time * 2);
   };
-  
 }
