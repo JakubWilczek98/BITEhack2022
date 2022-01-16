@@ -11,8 +11,8 @@
 
 
 // Zamienień na&nbsp;własne dane WiFi
-const char* ssid = "BITEhack2022";
-const char* password = "hackathon";
+const char* ssid = "AndroidAP34CB";
+const char* password = "gsju1405";
 
 // Stworzenie obiektu AsyncWebServer na&nbsp;porcie 80
 AsyncWebServer server(80);
@@ -25,11 +25,10 @@ const char index_html[] PROGMEM = R"rawliteral(
 
 </head>
 <body>
-  <h2>Serwer ESP DS18B20</h2>
+  <h2>Rescue robot status</h2>
   <p>
     <i class="fas fa-thermometer-half" style="color:#059e8a;"></i>
-    <span class="ds-labels">Odleglosc</span>
-    <span id="distance">%DISTANCE%</span>
+    <p id="distance">%DISTANCE%</p>
   </p>
 </body>
 <script>
@@ -60,6 +59,8 @@ int micPin = 27;
 int soundThresh = 2100;
 
 int SOSDiode = 13;
+
+String state = "Finding...";
 
 void go_straight() {
   digitalWrite(leftMotor, HIGH);
@@ -122,7 +123,7 @@ void sosSignal(int Pin) {
 String processor(const String& var){
   //Serial.println(var);
   if(var == "DISTANCE"){
-    return String(CM);
+    return String(state);
   }
   return String();
 }
@@ -147,7 +148,7 @@ void setup() {
   request->send_P(200, "text/html", index_html, processor);
   });
   server.on("/distance", HTTP_GET, [](AsyncWebServerRequest *request){
-  request->send_P(200, "text/plain", String(CM).c_str());
+  request->send_P(200, "text/plain", String(state).c_str());
   });
 
   // Start server
@@ -167,13 +168,10 @@ void setup() {
 void loop() {
   pomiar_odleglosci();
 
-  Serial.println(CM);
-
   int micVal = digitalRead(micPin);
 
   if (micVal == HIGH) {
-    Serial.println("Znalazlem!!!!!");
-    // digitalWrite(SOSDiode, HIGH);
+    state = "Found!";
     sosSignal(SOSDiode);
     stop_it();
     stop();
