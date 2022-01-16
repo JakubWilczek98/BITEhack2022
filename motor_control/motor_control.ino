@@ -49,6 +49,26 @@ void stop()
   while(1);
 }
 
+void flash(int duration, int Pin)
+{
+  digitalWrite(Pin, HIGH);
+  delay(duration);
+  digitalWrite(Pin, LOW);
+  delay(duration);
+}
+
+void sosSignal(int Pin) {
+  flash(200, Pin); flash(200, Pin); flash(200, Pin);
+
+  delay(300);
+  
+  flash(500, Pin); flash(500, Pin); flash(500, Pin);
+  
+  flash(200, Pin); flash(200, Pin); flash(200, Pin);
+  
+  delay(1000);
+}
+
 void setup() {
   pinMode(leftMotor, OUTPUT);
   pinMode(rigtMotor, OUTPUT);
@@ -71,7 +91,8 @@ void loop() {
 
   if (micVal == HIGH) {
     Serial.println("Znalazlem!!!!!");
-    digitalWrite(SOSDiode, HIGH);
+    // digitalWrite(SOSDiode, HIGH);
+    sosSignal(SOSDiode);
     stop_it();
     stop();
   }
