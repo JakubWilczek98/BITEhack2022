@@ -90,11 +90,10 @@ void loop() {
   int micVal = digitalRead(micPin);
 
   if (micVal == HIGH) {
-    Serial.println("Znalazlem!!!!!");
-    // digitalWrite(SOSDiode, HIGH);
-    sosSignal(SOSDiode);
     stop_it();
-    stop();
+    while (1==1) {
+      sosSignal(SOSDiode);
+    }
   }
 
   if (CM > 35) {
