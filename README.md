@@ -1,4 +1,4 @@
-# BITEhack2022 - 24 hour competition
+# BITEhack2022 - 24 hours competition
 
 During 24h competition our idea were to create the rescuer supporting robot. 
 The robot should automatically move around the room, avoiding obstacles that is smoky as a result of a fire. 
